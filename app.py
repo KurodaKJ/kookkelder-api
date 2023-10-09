@@ -1,13 +1,12 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from db_instance import db
 
 app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost:3306/kookkelder'
 
-db = SQLAlchemy(app)
 migration = Migrate(app, db)
 
 # Import models for migration and database creation

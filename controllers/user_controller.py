@@ -1,5 +1,6 @@
 from flask import jsonify, request
-from app import app, db
+from app import app
+from db_instance import db
 from models.user_model import UserTypeModel
 
 route: str = '/user'
