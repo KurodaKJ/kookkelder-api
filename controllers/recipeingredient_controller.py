@@ -1,0 +1,1 @@
+route: str = '/recipe-ingredient'

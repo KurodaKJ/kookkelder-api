@@ -1,7 +1,6 @@
-from flask import jsonify, request
-from app import app, Blueprint
-from db_instance import db
-from models.user_model import UserTypeModel
+from flask import jsonify
+
+from app import Blueprint
 
 route: str = '/user'
 user_blueprint = Blueprint('user', __name__)
@@ -12,44 +11,31 @@ def hello_world():
     return jsonify({'message': 'Hello, World!'})
 
 
-@app.route(route + '/test')
-def test():
-    return jsonify({'message': 'Test API'})
+@user_blueprint.route(route, methods=['GET'])
+def get_all_user():
+    # Implement get all user
+    return jsonify({'message': 'Get all user'})
 
 
-@app.route(route + '/usertype', methods=['GET'])
-def get_usertype():
-    try:
-        # Query the database to retrieve all user types
-        user_types = UserTypeModel.query.all()
-
-        # Convert the user type objects to DTOs or dictionaries
-        user_type_data = [{"id": ut.id, "type": ut.type} for ut in user_types]
-
-        # Return the user type data as a list of dictionaries
-        return jsonify(user_type_data)
-
-    except Exception as e:
-        # Handle any exceptions that may occur during the process
-        return jsonify({'error': 'An error occurred while retrieving user types', 'details': str(e)}), 500
+@user_blueprint.route(route + '/<int:user_id>', methods=['GET'])
+def get_user(user_id: int):
+    # Implement get user by id
+    return jsonify({'message': 'Get user by id'})
 
 
-@app.route(route + '/usertype', methods=['POST'])
-def create_usertype():
-    try:
-        # Extract the usertype data from the request JSON
-        data = request.json
-        if not data:
-            return jsonify({'error': 'Invalid data provided'}), 400
+@user_blueprint.route(route, methods=['POST'])
+def create_user():
+    # Implement create user
+    return jsonify({'message': 'Create user'})
 
-        # Create a new UserTypeModel object and add it to the database
-        new_usertype = UserTypeModel(**data)
-        db.session.add(new_usertype)
-        db.session.commit()
 
-        # Return a success response with the new usertype data
-        return jsonify({'message': 'User type created successfully', 'usertype': data}), 201
+@user_blueprint.route(route + '/<int:user_id>', methods=['PUT'])
+def update_user(user_id: int):
+    # Implement update user
+    return jsonify({'message': 'Update user'})
 
-    except Exception as e:
-        # Handle any exceptions that may occur during the process
-        return jsonify({'error': 'An error occurred while creating the user type', 'details': str(e)}), 500
+
+@user_blueprint.route(route + '/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id: int):
+    # Implement delete user
+    return jsonify({'message': 'Delete user'})
