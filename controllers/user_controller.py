@@ -1,6 +1,4 @@
-from flask import jsonify
-
-from app import Blueprint
+from flask import Blueprint, jsonify
 
 route: str = '/user'
 user_blueprint = Blueprint('user', __name__)

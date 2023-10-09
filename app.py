@@ -3,6 +3,15 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from db_instance import db
 
+# Import controllers for API
+from controllers.user_controller import user_blueprint
+from controllers.usertype_controller import usertype_blueprint
+from controllers.ingredient_controller import ingredient_blueprint
+from controllers.sortingredient_controller import sortingredient_blueprint
+from controllers.recipe_controller import recipe_blueprint
+from controllers.recipeingredient_controller import recipeingredient_blueprint
+from controllers.unit_controller import unit_blueprint
+
 app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost:3306/kookkelder'
@@ -14,12 +23,15 @@ from models.ingredient_model import IngredientModel, SortIngredientModel
 from models.recipe_model import RecipeModel, RecipeIngredientModel, UnitModel
 from models.user_model import UserModel, UserTypeModel
 
-# Import controllers for API
-from controllers import ingredient_controller, recipe_controller
-from controllers.user_controller import user_blueprint
 
 # Register blueprints for API
 app.register_blueprint(user_blueprint)
+app.register_blueprint(usertype_blueprint)
+app.register_blueprint(ingredient_blueprint)
+app.register_blueprint(sortingredient_blueprint)
+app.register_blueprint(recipe_blueprint)
+app.register_blueprint(recipeingredient_blueprint)
+app.register_blueprint(unit_blueprint)
 
 
 @app.route('/')
