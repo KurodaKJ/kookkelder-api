@@ -1,12 +1,13 @@
 from flask import jsonify, request
-from app import app
+from app import app, Blueprint
 from db_instance import db
 from models.user_model import UserTypeModel
 
 route: str = '/user'
+user_blueprint = Blueprint('user', __name__)
 
 
-@app.route(route + '/hello', methods=['GET'])
+@user_blueprint.route(route + '/hello', methods=['GET'])
 def hello_world():
     return jsonify({'message': 'Hello, World!'})
 

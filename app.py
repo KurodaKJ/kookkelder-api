@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Blueprint
 from flask_cors import CORS
 from flask_migrate import Migrate
 from db_instance import db
@@ -15,7 +15,11 @@ from models.recipe_model import RecipeModel, RecipeIngredientModel, UnitModel
 from models.user_model import UserModel, UserTypeModel
 
 # Import controllers for API
-from controllers import user_controller, ingredient_controller, recipe_controller
+from controllers import ingredient_controller, recipe_controller
+from controllers.user_controller import user_blueprint
+
+# Register blueprints for API
+app.register_blueprint(user_blueprint)
 
 
 @app.route('/')
