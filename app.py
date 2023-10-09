@@ -6,7 +6,7 @@ from db_instance import db
 app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost:3306/kookkelder'
-
+db.init_app(app)
 migration = Migrate(app, db)
 
 # Import models for migration and database creation
