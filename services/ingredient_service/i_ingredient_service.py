@@ -3,7 +3,8 @@ from abc import ABC, abstractmethod
 
 class IIngredientService(ABC):
     @abstractmethod
-    def create_ingredient(self, ingredient_name, ingredient_type_id):
+    def create_ingredient(self, ingredient_name, ingredient_type_id, description,
+                          amount, unit_id, bb_date, last_restocked):
         pass
 
     @abstractmethod
@@ -19,13 +20,10 @@ class IIngredientService(ABC):
         pass
 
     @abstractmethod
-    def update_ingredient(self, ingredient_id, ingredient_name, ingredient_type_id):
+    def update_ingredient(self, ingredient_id, ingredient_name, ingredient_type_id,
+                          description, amount, unit_id, bb_date, last_restocked):
         pass
 
     @abstractmethod
     def delete_ingredient(self, ingredient_id):
-        pass
-
-    @abstractmethod
-    def get_ingredient_type_by_id(self, ingredient_type_id):
         pass
