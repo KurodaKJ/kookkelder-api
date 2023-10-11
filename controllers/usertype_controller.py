@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from services.usertype_service.usertype_service import UserTypeService
 
 route: str = '/usertype'
@@ -30,8 +30,20 @@ def get_usertype(usertype_id: int):
 
 @usertype_blueprint.route(route, methods=['POST'])
 def create_usertype():
-    # Implement create usertype
-    return jsonify({'message': 'Create usertype'})
+    try:
+        # Extract the user type data from the request JSON
+        data = request.json
+        if not data:
+            return jsonify({'error': 'Invalid data provided'}), 400
+
+        # Use the UserTypeService to create a new user type
+        new_usertype = userTypeService.create_usertype(data)
+
+        # Return a success response with the new user type data
+        return jsonify({'message': 'User type created successfully', 'usertype': {'id': new_usertype.id, 'type': new_usertype.type}}), 201
+
+    except Exception as e:
+        return jsonify({'error': 'An error occurred while creating the user type', 'details': str(e)}), 500
 
 
 @usertype_blueprint.route(route + '/<int:usertype_id>', methods=['PUT'])
