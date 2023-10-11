@@ -40,7 +40,8 @@ def create_usertype():
         new_usertype = userTypeService.create_usertype(data)
 
         # Return a success response with the new user type data
-        return jsonify({'message': 'User type created successfully', 'usertype': {'id': new_usertype.id, 'type': new_usertype.type}}), 201
+        return jsonify({'message': 'User type created successfully',
+                        'usertype': {'id': new_usertype.id, 'type': new_usertype.type}}), 201
 
     except Exception as e:
         return jsonify({'error': 'An error occurred while creating the user type', 'details': str(e)}), 500
@@ -48,8 +49,21 @@ def create_usertype():
 
 @usertype_blueprint.route(route + '/<int:usertype_id>', methods=['PUT'])
 def update_usertype(usertype_id: int):
-    # Implement update usertype
-    return jsonify({'message': 'Update usertype'})
+    try:
+        # Extract the updated user type data from the request JSON
+        data = request.json
+        if not data:
+            return jsonify({'error': 'Invalid data provided'}), 400
+
+        # Use the UserTypeService to update the user type
+        updated_usertype = userTypeService.update_usertype(usertype_id, data)
+
+        if updated_usertype:
+            return jsonify({'message': 'User type updated successfully'})
+        else:
+            return jsonify({'error': 'User type not found'}), 404
+    except Exception as e:
+        return jsonify({'error': 'An error occurred while updating user type', 'details': str(e)}), 500
 
 
 @usertype_blueprint.route(route + '/<int:usertype_id>', methods=['DELETE'])
@@ -62,4 +76,3 @@ def delete_usertype(usertype_id: int):
             return jsonify({'error': 'User type not found'}), 404
     except Exception as e:
         return jsonify({'error': 'An error occurred while deleting user type', 'details': str(e)}), 500
-

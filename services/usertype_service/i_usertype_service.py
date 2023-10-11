@@ -15,7 +15,7 @@ class IUserTypeService(ABC):
         pass
 
     @abstractmethod
-    def update_usertype(self, usertype_id, usertype):
+    def update_usertype(self, usertype_id, usertype_data):
         pass
 
     @abstractmethod

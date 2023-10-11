@@ -17,8 +17,18 @@ class UserTypeService(IUserTypeService):
         db.session.commit()
         return new_usertype
 
-    def update_usertype(self, usertype_id, usertype):
-        pass
+    def update_usertype(self, usertype_id, usertype_data):
+        try:
+            user_type = UserTypeModel.query.get(usertype_id)
+            if user_type:
+                # Update the user type with the new data
+                user_type.type = usertype_data['type']
+                db.session.commit()
+                return user_type
+            else:
+                return None
+        except Exception as e:
+            raise e
 
     def delete_usertype(self, usertype_id):
         try:
