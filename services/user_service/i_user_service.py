@@ -25,7 +25,3 @@ class IUserService(ABC):
     @abstractmethod
     def delete_user(self, user_id):
         pass
-
-    @abstractmethod
-    def get_user_type_by_id(self, user_type_id):
-        pass

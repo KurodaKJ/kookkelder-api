@@ -3,7 +3,11 @@ from abc import ABC, abstractmethod
 
 class IUserTypeService(ABC):
     @abstractmethod
-    def get_usertype(self):
+    def get_all_usertype(self):
+        pass
+
+    @abstractmethod
+    def get_user_type_by_id(self, user_type_id):
         pass
 
     @abstractmethod

@@ -10,7 +10,7 @@ userTypeService = UserTypeService()
 def get_all_usertype():
     try:
         # Use the UserTypeService to fetch all user types
-        user_types = userTypeService.get_usertype()
+        user_types = userTypeService.get_all_usertype()
 
         # Convert user type objects to a list of dictionaries
         user_type_data = [{"id": ut.id, "type": ut.type} for ut in user_types]
@@ -54,5 +54,12 @@ def update_usertype(usertype_id: int):
 
 @usertype_blueprint.route(route + '/<int:usertype_id>', methods=['DELETE'])
 def delete_usertype(usertype_id: int):
-    # Implement delete usertype
-    return jsonify({'message': 'Delete usertype'})
+    try:
+        deleted_usertype = userTypeService.delete_usertype(usertype_id)
+        if deleted_usertype:
+            return jsonify({'message': 'User type deleted successfully'})
+        else:
+            return jsonify({'error': 'User type not found'}), 404
+    except Exception as e:
+        return jsonify({'error': 'An error occurred while deleting user type', 'details': str(e)}), 500
+
