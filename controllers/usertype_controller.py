@@ -1,13 +1,25 @@
 from flask import Blueprint, jsonify
+from services.usertype_service.usertype_service import UserTypeService
 
 route: str = '/usertype'
 usertype_blueprint = Blueprint('usertype', __name__)
+userTypeService = UserTypeService()
 
 
 @usertype_blueprint.route(route, methods=['GET'])
 def get_all_usertype():
-    # Implement get all usertype
-    return jsonify({'message': 'Get all usertype'})
+    try:
+        # Use the UserTypeService to fetch all user types
+        user_types = userTypeService.get_usertype()
+
+        # Convert user type objects to a list of dictionaries
+        user_type_data = [{"id": ut.id, "type": ut.type} for ut in user_types]
+
+        # Return user type data as JSON
+        return jsonify(user_type_data)
+
+    except Exception as e:
+        return jsonify({'error': 'An error occurred while retrieving user types', 'details': str(e)}), 500
 
 
 @usertype_blueprint.route(route + '/<int:usertype_id>', methods=['GET'])
