@@ -20,6 +20,3 @@ class UserService(IUserService):
 
     def delete_user(self, user_id):
         pass
-
-    def get_user_type_by_id(self, user_type_id):
-        pass
