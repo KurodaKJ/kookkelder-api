@@ -1,4 +1,4 @@
-from app import db
+from db_instance import db
 from models.ingredient_model import IngredientModel
 from services.ingredient_service.i_ingredient_service import IIngredientService
 import logging
