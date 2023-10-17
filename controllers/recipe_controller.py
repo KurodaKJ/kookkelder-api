@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 
 route: str = '/recipe'
-recipe_blueprint = Blueprint('recipe', __name__, url_prefix=route)
+recipe_blueprint = Blueprint('recipe', __name__)
 
 
 @recipe_blueprint.route(route, methods=['GET'])

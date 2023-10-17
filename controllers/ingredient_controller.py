@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify, request
 from services.ingredient_service.ingredient_service import IngredientService
 
 route: str = '/ingredient'
-ingredient_blueprint = Blueprint('ingredient', __name__, url_prefix=route)
+ingredient_blueprint = Blueprint('ingredient', __name__)
 ingredientService = IngredientService()
 
 
