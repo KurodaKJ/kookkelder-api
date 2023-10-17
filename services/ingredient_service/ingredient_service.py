@@ -1,7 +1,6 @@
 from db_instance import db
 from models.ingredient_model import IngredientModel
 from services.ingredient_service.i_ingredient_service import IIngredientService
-import logging
 
 
 class IngredientService(IIngredientService):
@@ -26,8 +25,7 @@ class IngredientService(IIngredientService):
 
         except Exception as e:
             # Handle any exceptions that may occur during ingredient creation
-            logging.error(f"Error creating ingredient: {str(e)}")  # Log the error message
-            return None  # You can handle errors here or return a specific error response
+            raise e
 
     def get_ingredient_by_id(self, ingredient_id):
         try:
@@ -37,8 +35,7 @@ class IngredientService(IIngredientService):
 
         except Exception as e:
             # Handle any exceptions that may occur during ingredient retrieval
-            logging.error(f"Error retrieving ingredient: {str(e)}")
-            return None
+            raise e
 
     def get_ingredient_by_name(self, ingredient_name):
         try:
@@ -48,8 +45,7 @@ class IngredientService(IIngredientService):
 
         except Exception as e:
             # Handle any exceptions that may occur during ingredient retrieval
-            logging.error(f"Error retrieving ingredient: {str(e)}")
-            return None
+            raise e
 
     def get_all_ingredients(self):
         try:
@@ -59,8 +55,7 @@ class IngredientService(IIngredientService):
 
         except Exception as e:
             # Handle any exceptions that may occur during ingredient retrieval
-            logging.error(f"Error retrieving ingredients: {str(e)}")
-            return None
+            raise e
 
     def update_ingredient(self, ingredient_id, ingredient_name, ingredient_type_id,
                           description, amount, unit_id, bb_date, last_restocked):
@@ -85,8 +80,7 @@ class IngredientService(IIngredientService):
 
         except Exception as e:
             # Handle any exceptions that may occur during ingredient update
-            logging.error(f"Error updating ingredient: {str(e)}")
-            return False
+            raise e
 
     def delete_ingredient(self, ingredient_id):
         try:
@@ -102,5 +96,4 @@ class IngredientService(IIngredientService):
 
         except Exception as e:
             # Handle any exceptions that may occur during ingredient deletion
-            logging.error(f"Error deleting ingredient: {str(e)}")
-            return False
+            raise e

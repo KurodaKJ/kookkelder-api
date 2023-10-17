@@ -1,4 +1,3 @@
-
 from db_instance import db
 from models.user_model import UserTypeModel
 from services.usertype_service.i_usertype_service import IUserTypeService
