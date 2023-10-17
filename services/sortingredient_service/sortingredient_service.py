@@ -15,13 +15,22 @@ class SortIngredientService(ISortIngredientService):
             raise e
 
     def get_sort_ingredient_by_id(self, sort_ingredient_id):
-        return SortIngredientModel.query.get(sort_ingredient_id)
+        try:
+            return SortIngredientModel.query.get(sort_ingredient_id)
+        except Exception as e:
+            raise e
 
     def get_sort_ingredient_by_name(self, name):
-        return SortIngredientModel.query.filter_by(name=name).first()
+        try:
+            return SortIngredientModel.query.filter_by(name=name).first()
+        except Exception as e:
+            raise e
 
     def get_all_sort_ingredients(self):
-        return SortIngredientModel.query.all()
+        try:
+            return SortIngredientModel.query.all()
+        except Exception as e:
+            raise e
 
     def update_sort_ingredient(self, sort_ingredient_id, name):
         try:

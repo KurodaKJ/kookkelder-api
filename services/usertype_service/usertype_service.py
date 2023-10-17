@@ -5,16 +5,26 @@ from services.usertype_service.i_usertype_service import IUserTypeService
 
 class UserTypeService(IUserTypeService):
     def get_all_usertype(self):
-        return UserTypeModel.query.all()
+        try:
+            return UserTypeModel.query.all()
+        except Exception as e:
+            raise e
 
     def get_user_type_by_id(self, user_type_id):
-        pass
+        try:
+            return UserTypeModel.query.get(user_type_id)
+        except Exception as e:
+            raise e
 
     def create_usertype(self, usertype):
-        new_usertype = UserTypeModel(**usertype)
-        db.session.add(new_usertype)
-        db.session.commit()
-        return new_usertype
+        try:
+            new_usertype = UserTypeModel(**usertype)
+            db.session.add(new_usertype)
+            db.session.commit()
+            return new_usertype
+        except Exception as e:
+            db.session.rollback()
+            raise e
 
     def update_usertype(self, usertype_id, usertype_data):
         try:

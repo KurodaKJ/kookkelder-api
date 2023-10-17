@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class IUserService(ABC):
     @abstractmethod
-    def create_user(self, username, password):
+    def create_user(self, username, password, user_type_id):
         pass
 
     @abstractmethod
@@ -19,7 +19,7 @@ class IUserService(ABC):
         pass
 
     @abstractmethod
-    def update_user(self, user_id, username, password):
+    def update_user(self, user_id, username, password, user_type_id):
         pass
 
     @abstractmethod

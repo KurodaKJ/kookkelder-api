@@ -13,11 +13,13 @@ def get_all_usertype():
         user_types = userTypeService.get_all_usertype()
 
         # Convert user type objects to a list of dictionaries
-        user_type_data = [{"id": ut.id, "type": ut.type} for ut in user_types]
+        if user_types:
+            user_type_data = [{"id": ut.id, "type": ut.type} for ut in user_types]
 
-        # Return user type data as JSON
-        return jsonify(user_type_data)
-
+            # Return user type data as JSON
+            return jsonify(user_type_data)
+        else:
+            return jsonify({'message': 'No user types found'}), 404
     except Exception as e:
         return jsonify({'error': 'An error occurred while retrieving user types', 'details': str(e)}), 500
 

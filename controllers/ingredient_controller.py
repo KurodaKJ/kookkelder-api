@@ -29,8 +29,8 @@ def get_all_ingredient():
             } for ingredient in ingredients]
 
             return jsonify(ingredient_data), 200
-
-        return jsonify({'message': 'No ingredients found'}), 404
+        else:
+            return jsonify({'message': 'No ingredients found'}), 404
     except Exception as e:
         return jsonify({'error': 'An error occurred while retrieving ingredients', 'details': str(e)}), 500
 
@@ -55,8 +55,8 @@ def get_ingredient(ingredient_id: int):
             }
 
             return jsonify(ingredient_data), 200
-
-        return jsonify({'message': 'Ingredient not found'}), 404
+        else:
+            return jsonify({'message': 'Ingredient not found'}), 404
     except Exception as e:
         return jsonify({'error': 'An error occurred while retrieving the ingredient', 'details': str(e)}), 500
 

@@ -25,7 +25,3 @@ class IRecipeService(ABC):
     @abstractmethod
     def delete_recipe(self, recipe_id):
         pass
-
-    @abstractmethod
-    def get_recipe_type_by_id(self, recipe_type_id):
-        pass
