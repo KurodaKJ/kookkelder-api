@@ -14,7 +14,7 @@ def get_all_recipe():
 
         if recipes:
             # Convert the recipes to a list of dictionaries for JSON response
-            recipe_data = [{"id": recipe.id, "name": recipe.name, "description": recipe.description} for recipe in recipes]
+            recipe_data = [{"id": recipe.id, "name": recipe.name, "description": recipe.description, "preparation_time": recipe.preparation_time, "cooking_time": recipe.cooking_time} for recipe in recipes]
             return jsonify(recipe_data)
         else:
             return jsonify({'message': 'No recipes found'}), 404
@@ -47,7 +47,7 @@ def create_recipe():
 
         # Call the service to create a new recipe
         new_recipe = recipe_service.create_recipe(data['name'], data['description'],
-                                                  data['preparation_time'], data['cooking_time'])
+                                                  data['[preparation_time]'], data['cooking_time'])
         # Convert the new recipe to a dictionary for JSON response
         recipe_data = {"id": new_recipe.id, "name": new_recipe.name, "description": new_recipe.description}
         return jsonify({'message': 'Recipe created successfully', 'recipe': recipe_data}), 201
