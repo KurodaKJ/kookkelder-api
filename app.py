@@ -14,8 +14,16 @@ from controllers.unit_controller import unit_blueprint
 
 app = Flask(__name__)
 CORS(app)
+
+# Configuration for file uploads
+app.config['UPLOAD_FOLDER'] = '/uploads'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+# Configuration for database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost:3306/kookkelder'
 db.init_app(app)
+
+# Configuration for migration
 migration = Migrate(app, db)
 
 # Import models for migration and database creation
