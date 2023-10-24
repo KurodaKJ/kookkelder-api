@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
+
+from controllers.upload_controller import upload_blueprint
 from db_instance import db
 
 # Import controllers for API
@@ -14,8 +16,16 @@ from controllers.unit_controller import unit_blueprint
 
 app = Flask(__name__)
 CORS(app)
+
+# Configuration for file uploads
+app.config['UPLOAD_FOLDER'] = '/uploads'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
+# Configuration for database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost:3306/kookkelder'
 db.init_app(app)
+
+# Configuration for migration
 migration = Migrate(app, db)
 
 # Import models for migration and database creation
@@ -32,6 +42,7 @@ app.register_blueprint(sort_ingredient_blueprint)
 app.register_blueprint(recipe_blueprint)
 app.register_blueprint(recipe_ingredient_blueprint)
 app.register_blueprint(unit_blueprint)
+app.register_blueprint(upload_blueprint)
 
 
 @app.route('/')
