@@ -9,3 +9,7 @@ class IPictureService(ABC):
     @abstractmethod
     def upload_picture(self, file):
         pass
+
+    @abstractmethod
+    def get_picture(self, file):
+        pass
