@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
+
+from controllers.upload_controller import upload_blueprint
 from db_instance import db
 
 # Import controllers for API
@@ -40,6 +42,7 @@ app.register_blueprint(sort_ingredient_blueprint)
 app.register_blueprint(recipe_blueprint)
 app.register_blueprint(recipe_ingredient_blueprint)
 app.register_blueprint(unit_blueprint)
+app.register_blueprint(upload_blueprint)
 
 
 @app.route('/')

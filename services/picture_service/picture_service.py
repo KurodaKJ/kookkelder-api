@@ -19,3 +19,18 @@ class PictureService(IPictureService):
         except Exception as e:
             # Handle any exceptions that may occur during picture upload
             raise e
+
+    def get_picture(self, filename):
+        try:
+            # Check if the file exists
+            file_path = os.path.join(self.upload_folder, filename)
+
+            if os.path.exists(file_path):
+                # You can return the file as binary data
+                with open(file_path, 'rb') as file:
+                    binary_data = file.read()
+                return binary_data
+            else:
+                return None
+        except Exception as e:
+            raise e
