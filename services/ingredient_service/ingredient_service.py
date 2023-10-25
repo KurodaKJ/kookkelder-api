@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from db_instance import db
 from models.ingredient_model import IngredientModel
 from services.ingredient_service.i_ingredient_service import IIngredientService
@@ -96,4 +97,13 @@ class IngredientService(IIngredientService):
 
         except Exception as e:
             # Handle any exceptions that may occur during ingredient deletion
+            raise e
+
+    def get_expiring_ingredients(self, days_until_expiration):
+        try:
+            today = datetime.today()
+            expiration_date = today + timedelta(days=days_until_expiration)
+            expiring_ingredients = IngredientModel.query.filter(IngredientModel.bb_date <= expiration_date).all()
+            return expiring_ingredients
+        except Exception as e:
             raise e

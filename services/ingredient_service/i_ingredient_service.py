@@ -27,3 +27,7 @@ class IIngredientService(ABC):
     @abstractmethod
     def delete_ingredient(self, ingredient_id):
         pass
+
+    @abstractmethod
+    def get_expiring_ingredients(self, days_until_expiration):
+        pass

@@ -1,7 +1,5 @@
 from datetime import datetime
-
 from flask import Blueprint, jsonify, request
-
 from services.ingredient_service.ingredient_service import IngredientService
 
 route: str = '/ingredient'
@@ -36,7 +34,7 @@ def get_all_ingredient():
 
 
 @ingredient_blueprint.route(route + '/<int:ingredient_id>', methods=['GET'])
-def get_ingredient(ingredient_id: int):
+def get_ingredient_by_id(ingredient_id: int):
     try:
         # Retrieve an ingredient by its ID using your service
         ingredient = ingredientService.get_ingredient_by_id(ingredient_id)
@@ -59,6 +57,32 @@ def get_ingredient(ingredient_id: int):
             return jsonify({'message': 'Ingredient not found'}), 404
     except Exception as e:
         return jsonify({'error': 'An error occurred while retrieving the ingredient', 'details': str(e)}), 500
+
+
+@ingredient_blueprint.route(route + '/check-expiration', methods=['POST'])
+def get_expiring_ingredients():
+    try:
+        days_until_expiration = request.args.get('days_until_expiration', type=int, default=7)
+        expiring_ingredients = ingredientService.get_expiring_ingredients(days_until_expiration)
+
+        if expiring_ingredients:
+            # Convert ingredients to a list of dictionaries or DTOs
+            ingredient_data = [{
+                "id": ingredient.id,
+                "name": ingredient.name,
+                "description": ingredient.description,
+                "amount": ingredient.amount,
+                "unit_id": ingredient.unit_id,
+                "bb_date": ingredient.bb_date.strftime('%Y-%m-%d'),
+                "last_restocked": ingredient.last_restocked.strftime('%Y-%m-%d'),
+                "sort_ingredient_id": ingredient.sort_ingredient_id
+            } for ingredient in expiring_ingredients]
+
+            return jsonify(ingredient_data), 200
+        else:
+            return jsonify({'message': 'No expiring ingredients found'}), 404
+    except Exception as e:
+        return jsonify({'error': 'An error occurred while retrieving expiring ingredients', 'details': str(e)}), 500
 
 
 @ingredient_blueprint.route(route, methods=['POST'])
