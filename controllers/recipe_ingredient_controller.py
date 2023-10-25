@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, request
 from services.recipe_ingredient_service.recipe_ingredient_service import RecipeIngredientService
+import sys
+sys.path.append('../models/recipe_model.py/RecipeIngredientModel')
 
 route: str = '/recipe-ingredient'
 recipe_ingredient_blueprint = Blueprint('recipe_ingredient', __name__)
@@ -13,7 +15,9 @@ def get_all_recipe_ingredient():
         recipe_ingredients = recipe_ingredient_service.get_all_recipe_ingredients()
 
         if recipe_ingredients:
-            return jsonify(recipe_ingredients)
+            # Convert RecipeIngredientModel objects to dictionaries
+            recipe_ingredient_dicts = [recipe.as_dict() for recipe in recipe_ingredients]
+            return jsonify(recipe_ingredient_dicts)
         else:
             return jsonify({'message': 'No recipe ingredients found'}), 404
     except Exception as e:
