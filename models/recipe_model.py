@@ -17,15 +17,6 @@ class RecipeIngredientModel(db.Model):
     amount = db.Column(db.Float, nullable=False)
     unit = db.Column(db.Integer, db.ForeignKey('units.id'), nullable=False)
 
-    def as_dict(self):
-        return {
-            'recipe_id': self.recipe_id,
-            'ingredient_id': self.ingredient_id,
-            'amount': self.amount,
-            'unit': self.unit
-        }
-
-
 class UnitModel(db.Model):
     __tablename__ = 'units'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
