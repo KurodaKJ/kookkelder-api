@@ -33,7 +33,7 @@ def get_recipe_ingredient(recipe_ingredient_id: int):
 
         if recipe_ingredient:
             # Convert RecipeIngredientModel object to dictionary
-            recipe_ingredient = {"id": recipe_ingredient.id, "recipe_id": recipe_ingredient.recipe_id,
+            recipe_ingredient = {"recipe_id": recipe_ingredient.recipe_id,
                                  "ingredient_id": recipe_ingredient.ingredient_id, "amount": recipe_ingredient.amount,
                                  "unit": recipe_ingredient.unit_id}
             return jsonify(recipe_ingredient)
