@@ -17,7 +17,7 @@ def get_all_recipe_ingredient():
         if recipe_ingredients:
             # Convert RecipeIngredientModel objects to dictionaries
             recipe_ingredient_dicts = [{"recipe_id": ri.recipe_id, "ingredient_id": ri.ingredient_id,
-                                        "amount": ri.amount, "unit": ri.unit_id} for ri in recipe_ingredients]
+                                        "amount": ri.amount, "unit": ri.unit} for ri in recipe_ingredients]
             return jsonify(recipe_ingredient_dicts)
         else:
             return jsonify({'message': 'No recipe ingredients found'}), 404
@@ -35,7 +35,7 @@ def get_recipe_ingredient(recipe_ingredient_id: int):
             # Convert RecipeIngredientModel object to dictionary
             recipe_ingredient = {"recipe_id": recipe_ingredient.recipe_id,
                                  "ingredient_id": recipe_ingredient.ingredient_id, "amount": recipe_ingredient.amount,
-                                 "unit": recipe_ingredient.unit_id}
+                                 "unit": recipe_ingredient.unit}
             return jsonify(recipe_ingredient)
         else:
             return jsonify({'message': 'Recipe ingredient not found'}), 404
