@@ -5,7 +5,7 @@ from services.picture_service.picture_service import PictureService
 route: str = '/upload'
 upload_blueprint = Blueprint('upload', __name__)
 
-UPLOAD_FOLDER = '../upload'  # Adjust to your project's structure
+UPLOAD_FOLDER = '../uploads'  # Adjust to your project's structure
 picture_service = PictureService(UPLOAD_FOLDER)
 
 
