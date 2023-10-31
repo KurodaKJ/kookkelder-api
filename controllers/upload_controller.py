@@ -1,11 +1,14 @@
 import io
+import os
+
 from flask import Blueprint, request, jsonify, send_file
 from services.picture_service.picture_service import PictureService
 
 route: str = '/upload'
 upload_blueprint = Blueprint('upload', __name__)
 
-UPLOAD_FOLDER = '../uploads'  # Adjust to your project's structure
+# Provide the absolute path to the target directory
+UPLOAD_FOLDER = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'uploads')
 picture_service = PictureService(UPLOAD_FOLDER)
 
 
@@ -21,7 +24,7 @@ def upload_picture():
             return jsonify({'error': 'No selected file'}), 400
 
         if file:
-            filename = picture_service.upload_picture(file)
+            filename = picture_service.upload_picture(file, UPLOAD_FOLDER)
             return jsonify({'message': 'Picture uploaded successfully', 'filename': filename}), 201
 
         return jsonify({'error': 'No file provided'}), 400

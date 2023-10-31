@@ -6,11 +6,14 @@ class PictureService(IPictureService):
     def __init__(self, upload_folder):
         self.upload_folder = upload_folder
 
-    def upload_picture(self, file):
+    def upload_picture(self, file, target_directory):
         try:
             if file:
+                # Create the target directory if it doesn't exist
+                os.makedirs(target_directory, exist_ok=True)
+
                 # Upload the picture to the server
-                file.save(os.path.join(self.upload_folder, file.filename))
+                file.save(os.path.join(target_directory, file.filename))
 
                 # Return the picture's filename
                 return file.filename

@@ -7,7 +7,7 @@ class IPictureService(ABC):
         pass
 
     @abstractmethod
-    def upload_picture(self, file):
+    def upload_picture(self, file, target_directory):
         pass
 
     @abstractmethod
