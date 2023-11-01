@@ -1,5 +1,7 @@
+from sqlalchemy import asc
 from db_instance import db
-from models.recipe_model import RecipeModel
+from models.ingredient_model import IngredientModel
+from models.recipe_model import RecipeModel, RecipeIngredientModel
 from services.recipe_service.i_recipe_service import IRecipeService
 
 
@@ -35,6 +37,18 @@ class RecipeService(IRecipeService):
     def get_all_recipes(self):
         try:
             return RecipeModel.query.all()
+        except Exception as e:
+            raise e
+
+    def get_all_recipes_by_bb_date(self):
+        try:
+            # Join the RecipeModel and IngredientModel tables on recipe_id
+            # Add a filter to select only recipes where the BB date is in the future
+            # Order the results by BB date in ascending order
+            return db.session.query(RecipeModel).join(RecipeIngredientModel).join(
+                IngredientModel,
+                RecipeIngredientModel.ingredient_id == IngredientModel.id
+            ).filter(IngredientModel.bb_date >= db.func.current_date()).order_by(asc(IngredientModel.bb_date)).all()
         except Exception as e:
             raise e
 

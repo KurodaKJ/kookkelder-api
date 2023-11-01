@@ -19,6 +19,10 @@ class IRecipeService(ABC):
         pass
 
     @abstractmethod
+    def get_all_recipes_by_bb_date(self):
+        pass
+
+    @abstractmethod
     def update_recipe(self, recipe_id, recipe_name, recipe_description, recipe_type_id, recipe_image):
         pass
 

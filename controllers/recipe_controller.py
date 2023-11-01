@@ -37,6 +37,33 @@ def get_recipe(recipe_id: int):
         return jsonify({'error': 'An error occurred while retrieving the recipe', 'details': str(e)}), 500
 
 
+@recipe_blueprint.route(route + '/sorted-by-bb-date', methods=['GET'])
+def get_all_recipes_by_bb_date():
+    try:
+        # Call the service to retrieve all recipes sorted by BB date
+        recipes = recipe_service.get_all_recipes_by_bb_date()
+
+        if recipes:
+            # Convert the recipes to a list of dictionaries for JSON response
+            recipe_data = [
+                {
+                    "id": recipe.id,
+                    "name": recipe.name,
+                    "description": recipe.description,
+                    "preparation_time": recipe.preparation_time,
+                    "cooking_time": recipe.cooking_time,
+                }
+                for recipe in recipes
+            ]
+            return jsonify(recipe_data)
+        else:
+            return jsonify({'message': 'No recipes found'}), 404
+    except Exception as e:
+        return jsonify(
+            {'error': 'An error occurred while retrieving recipes', 'details': str(e)}
+        ), 500
+
+
 @recipe_blueprint.route(route, methods=['POST'])
 def create_recipe():
     try:
