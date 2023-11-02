@@ -107,3 +107,13 @@ class IngredientService(IIngredientService):
             return expiring_ingredients
         except Exception as e:
             raise e
+
+    def get_top_ingredients(self, limit):
+        try:
+            # Query the database to retrieve the top ingredients with the biggest amounts
+            top_ingredients = IngredientModel.query.order_by(IngredientModel.amount.desc()).limit(limit).all()
+            return top_ingredients
+
+        except Exception as e:
+            # Handle any exceptions that may occur during ingredient retrieval
+            raise e

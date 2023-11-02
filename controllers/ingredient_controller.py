@@ -85,6 +85,32 @@ def get_expiring_ingredients():
         return jsonify({'error': 'An error occurred while retrieving expiring ingredients', 'details': str(e)}), 500
 
 
+@ingredient_blueprint.route(route + '/top-ingredients', methods=['GET'])
+def get_top_ingredients():
+    try:
+        # Retrieve the top 10 ingredients with the biggest amounts using your service
+        top_ingredients = ingredientService.get_top_ingredients(10)  # Change the number as needed
+
+        if top_ingredients:
+            # Convert ingredients to a list of dictionaries or DTOs
+            ingredient_data = [{
+                "id": ingredient.id,
+                "name": ingredient.name,
+                "description": ingredient.description,
+                "amount": ingredient.amount,
+                "unit_id": ingredient.unit_id,
+                "bb_date": ingredient.bb_date.strftime('%Y-%m-%d'),
+                "last_restocked": ingredient.last_restocked.strftime('%Y-%m-%d'),
+                "sort_ingredient_id": ingredient.sort_ingredient_id
+            } for ingredient in top_ingredients]
+
+            return jsonify(ingredient_data), 200
+        else:
+            return jsonify({'message': 'No ingredients found'}), 404
+    except Exception as e:
+        return jsonify({'error': 'An error occurred while retrieving ingredients', 'details': str(e)}), 500
+
+
 @ingredient_blueprint.route(route, methods=['POST'])
 def create_ingredient():
     try:
